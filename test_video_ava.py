@@ -140,7 +140,7 @@ def run(args, d_cfg, model, device, transform, class_names):
 
     video.release()
     out.release()
-    cv2.destroyAllWindows()
+    #cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
