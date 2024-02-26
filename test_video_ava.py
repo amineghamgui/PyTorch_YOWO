@@ -5,7 +5,7 @@ import time
 import numpy as np
 import torch
 from PIL import Image
-
+import imageio
 from dataset.transforms import BaseTransform
 from utils.misc import load_weight
 from config import build_dataset_config, build_model_config
