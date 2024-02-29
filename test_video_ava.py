@@ -270,9 +270,9 @@ def run(args, d_cfg, model, device, transform, class_names):
     gif_frames = []
     video_clip = []
     iteration_times = []
-    indice_global=[]
+    #indice_global=[]
     d=dict()
-    d1=dict()
+    #d1=dict()
     while(True):
         iteration_start_time = time.time()
 
