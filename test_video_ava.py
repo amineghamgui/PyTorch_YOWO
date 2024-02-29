@@ -270,7 +270,9 @@ def run(args, d_cfg, model, device, transform, class_names):
     gif_frames = []
     video_clip = []
     iteration_times = []
-
+    indice_global=[]
+    d=dict()
+    d1=dict()
     while(True):
         iteration_start_time = time.time()
 
@@ -322,7 +324,7 @@ def run(args, d_cfg, model, device, transform, class_names):
                 scores = cls_scores[indices]
                 indices = list(indices[0])
                 scores = list(scores)
-
+                #print("*****************************************************",indices)
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
                 if len(scores) > 0:
@@ -333,7 +335,14 @@ def run(args, d_cfg, model, device, transform, class_names):
                     text_size = []
 
                     for _, cls_ind in enumerate(indices):
+                        d1[str(class_names[cls_ind])]=scores[_]
+                        #print("#####################",_,cls_ind)
                         text.append("[{:.2f}] ".format(scores[_]) + str(class_names[cls_ind]))
+                        if((str(class_names[cls_ind]) not in  d)):
+                          d[str(class_names[cls_ind])]=scores[_]
+                        if ((str(class_names[cls_ind]) in d)and(scores[_]>d[str(class_names[cls_ind])])  ):
+                          d[str(class_names[cls_ind])]=scores[_]
+                        
                         text_size.append(cv2.getTextSize(text[-1], font, fontScale=0.25, thickness=1)[0])
                         coord.append((x1 + 3, y1 + 7 + 10 * _))
                         cv2.rectangle(blk, (coord[-1][0] - 1, coord[-1][1] - 6),
@@ -363,7 +372,14 @@ def run(args, d_cfg, model, device, transform, class_names):
     average_iteration_time = sum(iteration_times) / len(iteration_times)
     average_fps = 1 / average_iteration_time
     print(f'Average FPS: {average_fps:.2f}')
+    #print(d)
+    # Trier le dictionnaire par valeurs de manière décroissante
+    sorted_items = sorted(d.items(), key=lambda x: x[1], reverse=True)
+    # Afficher les 5 premières clés avec les valeurs les plus élevées
+    top_5_keys = [key for key, value in sorted_items[:5]]
+    print("Les 5 clés avec les valeurs les plus élevées sont :", top_5_keys)
 
+    
     # Save the frames as a gif using imageio
     imageio.mimsave(save_name, gif_frames, duration=1/fps)
 
