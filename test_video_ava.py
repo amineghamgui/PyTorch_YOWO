@@ -396,7 +396,8 @@ def run(args, d_cfg, model, device, transform, class_names):
     print("num frame",num_frames)
     print("num iteration",len(iteration_times))
     print('ram used',end_ram-start_ram)
-    print("fps pour modele seulement" ,sum(time_global)/len(time_global))
+    print("fps pour modele seulement" ,len(time_global)/sum(time_global))
+    
 
 
 if __name__ == '__main__':
