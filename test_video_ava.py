@@ -275,7 +275,7 @@ def run(args, d_cfg, model, device, transform, class_names):
     gif_frames = []
     video_clip = []
     iteration_times = []
-    #indice_global=[]
+    time_global=[]
     d=dict()
     #d1=dict()
     start_ram = psutil.virtual_memory().used
@@ -310,6 +310,7 @@ def run(args, d_cfg, model, device, transform, class_names):
             # inference
             batch_bboxes = model(x)
             inference_time = time.time() - t0
+            time_global.append(inference_time)
             print("inference time ", inference_time, "s")
 
             # batch size = 1
@@ -395,6 +396,7 @@ def run(args, d_cfg, model, device, transform, class_names):
     print("num frame",num_frames)
     print("num iteration",len(iteration_times))
     print('ram used',end_ram-start_ram)
+    print("fps pour modele seulement" ,sum(time_global)/len(time_global))
 
 
 if __name__ == '__main__':
