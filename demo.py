@@ -199,7 +199,7 @@ def detect(args, d_cfg, model, device, transform, class_names, class_colors):
 
     video.release()
     out.release()
-    cv2.destroyAllWindows()
+    #cv2.destroyAllWindows()
 
     # generate GIF
     if args.gif:
