@@ -341,7 +341,7 @@ def run(args, d_cfg, model, device, transform, class_names):
                     text_size = []
 
                     for _, cls_ind in enumerate(indices):
-                        d1[str(class_names[cls_ind])]=scores[_]
+                        #d1[str(class_names[cls_ind])]=scores[_]
                         #print("#####################",_,cls_ind)
                         text.append("[{:.2f}] ".format(scores[_]) + str(class_names[cls_ind]))
                         if((str(class_names[cls_ind]) not in  d)):
