@@ -10,7 +10,7 @@ from dataset.transforms import BaseTransform
 from utils.misc import load_weight
 from config import build_dataset_config, build_model_config
 from models.detector import build_model
-
+import imageio
 
 
 def parse_args():
@@ -254,10 +254,14 @@ def run(args, d_cfg, model, device, transform, class_names):
     # path to save 
     save_path = os.path.join(args.save_folder, 'ava_video')
     os.makedirs(save_path, exist_ok=True)
-
+    
     # path to video
     path_to_video = os.path.join(d_cfg['data_root'], 'videos_15min', args.video)
-
+    
+    gif = imageio.get_reader(path_to_video, 'gif')
+    
+            # Obtient le nombre total de frames dans le GIF
+    num_frames = len(gif)
     # video
     video = cv2.VideoCapture(path_to_video)
     fourcc = cv2.VideoWriter_fourcc(*'FMP4')
@@ -384,7 +388,8 @@ def run(args, d_cfg, model, device, transform, class_names):
     imageio.mimsave(save_name, gif_frames, duration=1/fps)
 
     print(f'Gif saved at: {save_name}')
-
+    print("num frame",num_frames)
+    print("num iteration",len(iteration_times))
 
 
 if __name__ == '__main__':
