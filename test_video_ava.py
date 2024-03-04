@@ -11,6 +11,7 @@ from utils.misc import load_weight
 from config import build_dataset_config, build_model_config
 from models.detector import build_model
 import imageio
+import psutil
 
 
 def parse_args():
@@ -269,7 +270,7 @@ def run(args, d_cfg, model, device, transform, class_names):
     save_size = (640, 480)
     save_name = os.path.join(save_path, 'detection.gif')  # Change extension to .gif
     fps = 15.0
-
+    
     # Create a list to store frames for gif creation
     gif_frames = []
     video_clip = []
@@ -277,6 +278,7 @@ def run(args, d_cfg, model, device, transform, class_names):
     #indice_global=[]
     d=dict()
     #d1=dict()
+    start_ram = psutil.virtual_memory().used
     while(True):
         iteration_start_time = time.time()
 
@@ -370,6 +372,8 @@ def run(args, d_cfg, model, device, transform, class_names):
             break
 
     # Release the video capture
+    time.sleep(3)
+    end_ram = psutil.virtual_memory().used
     video.release()
 
     # Calculate and print average fps
@@ -390,6 +394,7 @@ def run(args, d_cfg, model, device, transform, class_names):
     print(f'Gif saved at: {save_name}')
     print("num frame",num_frames)
     print("num iteration",len(iteration_times))
+    print('ram used',end_ram-start_ram)
 
 
 if __name__ == '__main__':
