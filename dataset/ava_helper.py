@@ -26,11 +26,18 @@ def read_exclusions(exclusions_file):
       or an empty set if exclusions file is None.
     """
     excluded = set()
-    if exclusions_file:
+    # if exclusions_file:
+    #     with open(exclusions_file, "r") as f:
+    #         reader = csv.reader(f)
+    #         for row in reader:
+    #             assert len(row) == 2, "Expected only 2 columns, got: " + row
+    #             excluded.add(make_image_key(row[0], row[1]))
+    # return excluded
+    if exclusions_file and os.path.getsize(exclusions_file)>1000:
         with open(exclusions_file, "r") as f:
             reader = csv.reader(f)
             for row in reader:
-                assert len(row) == 2, "Expected only 2 columns, got: " + row
+                assert len(row) == 2, "Expected only 2 columns, got: " 
                 excluded.add(make_image_key(row[0], row[1]))
     return excluded
 
