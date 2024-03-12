@@ -233,7 +233,7 @@ if __name__ == '__main__':
     img_size = 224
     len_clip = 16
     dataset_config = {
-        #'data_root': '/mnt/share/sda1/dataset/STAD/AVA_Dataset',
+        #'data_root': '/kaggle/input/data-ava/ava',
         'data_root': '/AVA_Dataset',
         'frames_dir': 'frames/',
         'frame_list': 'frame_lists/',
