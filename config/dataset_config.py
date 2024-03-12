@@ -111,7 +111,7 @@ dataset_config = {
     
     'ava_v2.2':{
         # dataset
-        'data_root': '/mnt/share/sda1/dataset/STAD/AVA_Dataset',
+        'data_root': '/kaggle/input/data-ava/ava',
         'frames_dir': 'frames/',
         'frame_list': 'frame_lists/',
         'annotation_dir': 'annotations/',
