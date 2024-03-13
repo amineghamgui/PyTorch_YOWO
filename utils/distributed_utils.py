@@ -153,7 +153,7 @@ def init_distributed_mode(args):
     #     print('Not using distributed mode')
     #     args.distributed = False
     #     return
-    if args.cuda and 'WORLD_SIZE' in os.environ and 'CUDA_VISIBLE_DEVICES' in os.environ:
+    if args.cuda :
         args.world_size = int(os.environ['WORLD_SIZE'])
         args.rank = int(os.environ.get('RANK', 0))
         args.gpu = int(os.environ['CUDA_VISIBLE_DEVICES'].split(',')[args.rank])
