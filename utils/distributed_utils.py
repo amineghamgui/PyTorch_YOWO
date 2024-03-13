@@ -149,7 +149,7 @@ def init_distributed_mode(args):
         print("args.dist_url",args.dist_url)
         args.world_size = 1
         args.rank = 0
-        args.gpu = 2
+        args.gpu = 1
         # args.world_size = int(os.environ['WORLD_SIZE'])
         # args.gpu = int(os.environ['LOCAL_RANK'])
         # args.rank = 0
