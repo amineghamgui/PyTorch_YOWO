@@ -142,18 +142,33 @@ def save_on_master(*args, **kwargs):
 
 
 def init_distributed_mode(args):
-    if 'RANK' in os.environ and 'WORLD_SIZE' in os.environ:
-        args.rank = int(os.environ["RANK"])
+    # if 'RANK' in os.environ and 'WORLD_SIZE' in os.environ:
+    #     args.rank = int(os.environ["RANK"])
+    #     args.world_size = int(os.environ['WORLD_SIZE'])
+    #     args.gpu = int(os.environ['LOCAL_RANK'])
+    # elif 'SLURM_PROCID' in os.environ:
+    #     args.rank = int(os.environ['SLURM_PROCID'])
+    #     args.gpu = args.rank % torch.cuda.device_count()
+    # else:
+    #     print('Not using distributed mode')
+    #     args.distributed = False
+    #     return
+    if args.cuda and 'WORLD_SIZE' in os.environ and 'CUDA_VISIBLE_DEVICES' in os.environ:
         args.world_size = int(os.environ['WORLD_SIZE'])
-        args.gpu = int(os.environ['LOCAL_RANK'])
-    elif 'SLURM_PROCID' in os.environ:
-        args.rank = int(os.environ['SLURM_PROCID'])
-        args.gpu = args.rank % torch.cuda.device_count()
+        args.rank = int(os.environ.get('RANK', 0))
+        args.gpu = int(os.environ['CUDA_VISIBLE_DEVICES'].split(',')[args.rank])
+        args.distributed = True
+    
+        # Ajoutez ces lignes pour afficher l'adresse maître
+        master_addr = os.environ.get('MASTER_ADDR', 'localhost')
+        print(f"Using distributed training. Master Address: {master_addr}")
+
     else:
         print('Not using distributed mode')
         args.distributed = False
+        args.rank = 0
+        args.gpu = 0
         return
-
     args.distributed = True
 
     torch.cuda.set_device(args.gpu)
