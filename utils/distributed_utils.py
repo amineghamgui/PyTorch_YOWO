@@ -151,7 +151,7 @@ def init_distributed_mode(args):
         
         args.world_size = 2
         
-        args.gpu = 2
+        args.gpu = 1
     elif 'SLURM_PROCID' in os.environ:
         args.rank = int(os.environ['SLURM_PROCID'])
         args.gpu = args.rank % torch.cuda.device_count()
