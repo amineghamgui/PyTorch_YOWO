@@ -153,22 +153,18 @@ def init_distributed_mode(args):
     #     print('Not using distributed mode')
     #     args.distributed = False
     #     return
-    if args.cuda :
-        args.world_size = int(os.environ['WORLD_SIZE'])
-        args.rank = int(os.environ.get('RANK', 0))
-        args.gpu = int(os.environ['CUDA_VISIBLE_DEVICES'].split(',')[args.rank])
-        args.distributed = True
-    
-        # Ajoutez ces lignes pour afficher l'adresse maître
-        master_addr = os.environ.get('MASTER_ADDR', 'localhost')
-        print(f"Using distributed training. Master Address: {master_addr}")
-
+    if 1==1:
+        #args.rank = int(os.environ["RANK"])
+        args.world_size = 2
+        #args.gpu = int(os.environ['LOCAL_RANK'])
+    elif 'SLURM_PROCID' in os.environ:
+        args.rank = int(os.environ['SLURM_PROCID'])
+        args.gpu = args.rank % torch.cuda.device_count()
     else:
         print('Not using distributed mode')
         args.distributed = False
-        args.rank = 0
-        args.gpu = 0
         return
+
     args.distributed = True
 
     torch.cuda.set_device(args.gpu)
