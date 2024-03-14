@@ -156,7 +156,7 @@ def init_distributed_mode(args):
 
     if 1==1:
         import random
-
+        print(args)
         # Générer un nombre aléatoire 1 ou 0
         random_number = random.randint(0, 1)
         
