@@ -121,8 +121,8 @@ def is_dist_avail_and_initialized():
 
 
 def get_world_size():
-    if not is_dist_avail_and_initialized():
-        return 1
+    # if not is_dist_avail_and_initialized():
+    #     return 1
     return dist.get_world_size()
 
 
@@ -175,7 +175,7 @@ def init_distributed_mode(args):
     print('| distributed init (rank {}): {}'.format(
         args.rank, args.dist_url), flush=True)
     torch.distributed.init_process_group(backend=args.dist_backend, init_method=args.dist_url,
-                                         world_size=2, rank=args.rank)
+                                         world_size=args.world_size, rank=args.rank)
     #args.world_size
     torch.distributed.barrier()
     setup_for_distributed(args.rank == 0)
