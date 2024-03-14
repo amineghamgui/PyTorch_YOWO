@@ -155,7 +155,12 @@ def init_distributed_mode(args):
     #     return
 
     if 1==1:
-        args.rank = 0
+        import random
+
+        # Générer un nombre aléatoire 1 ou 0
+        random_number = random.randint(0, 1)
+        
+        args.rank = random_number
         args.gpu = args.rank % torch.cuda.device_count()
     else:
         print('Not using distributed mode')
