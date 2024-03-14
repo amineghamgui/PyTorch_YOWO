@@ -156,7 +156,8 @@ def init_distributed_mode(args):
 
     if 1==1:
         import random
-        print(args)
+        print(backend=args.dist_backend, init_method=args.dist_url,world_size=args.world_size, rank=args.rank)
+                                         
         # Générer un nombre aléatoire 1 ou 0
         random_number = random.randint(0, 1)
         
