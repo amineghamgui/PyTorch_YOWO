@@ -142,10 +142,10 @@ def save_on_master(*args, **kwargs):
 
 
 def init_distributed_mode(args):
-    if 1==1:
-        args.rank = 1
-        args.gpu = args.rank % torch.cuda.device_count()
-        #print(backend=args.dist_backend, init_method=args.dist_url,world_size=args.world_size, rank=args.rank)
+    # if 1==1:
+    #     args.rank = 1
+    #     args.gpu = args.rank % torch.cuda.device_count()
+    #     #print(backend=args.dist_backend, init_method=args.dist_url,world_size=args.world_size, rank=args.rank)
                                          
     # if 'RANK' in os.environ and 'WORLD_SIZE' in os.environ:
     #     args.rank = int(os.environ["RANK"])
@@ -154,6 +154,9 @@ def init_distributed_mode(args):
     # elif 'SLURM_PROCID' in os.environ:
     #     args.rank = int(os.environ['SLURM_PROCID'])
     #     args.gpu = args.rank % torch.cuda.device_count()
+    if 'SLURM_PROCID' in os.environ:
+        args.rank = int(os.environ['SLURM_PROCID'])
+        args.gpu = args.rank % torch.cuda.device_count()
     else:
         print('Not using distributed mode')
         args.distributed = False
