@@ -235,7 +235,8 @@ if __name__ == '__main__':
     len_clip = 16
     dataset_config = {
         #'data_root': '/kaggle/input/data-ava/ava',
-        'data_root': '/kaggle/input/data-ava/ava',
+        'data_root''/kaggle/input/ava-1class/ava-20240312T085221Z-001/ava'
+        #'data_root': '/kaggle/input/data-ava/ava',
         'frames_dir': 'frames/',
         'frame_list': 'frame_lists/',
         'annotation_dir': 'annotations/',
