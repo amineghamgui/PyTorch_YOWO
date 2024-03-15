@@ -76,7 +76,8 @@ def build_dataset(d_cfg, args, is_train=False):
             len_clip=d_cfg['len_clip'],
             sampling_rate=d_cfg['sampling_rate']
         )
-        num_classes = 80
+        num_classes =1
+        # num_classes = 80
 
         # evaluator
         evaluator = AVA_Evaluator(
