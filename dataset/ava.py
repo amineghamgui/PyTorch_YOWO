@@ -25,7 +25,8 @@ class AVA_Dataset(Dataset):
                  len_clip=16,
                  sampling_rate=1):
         self._downsample = 4
-        self.num_classes = 80
+        self.num_classes = 1             
+        # self.num_classes = 80
         self.data_root = cfg['data_root']
         self.frames_dir = os.path.join(cfg['data_root'], cfg['frames_dir'])
         self.frame_list = os.path.join(cfg['data_root'], cfg['frame_list'])
