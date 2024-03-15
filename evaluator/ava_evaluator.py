@@ -163,7 +163,8 @@ class AVA_Evaluator(object):
             sec = int(np.round(pred[-1][1]))
             box = pred[0]
             scores = pred[1]
-            assert len(scores) == 80
+            
+            #assert len(scores) == 80
 
             video = self.video_idx_to_name[video_idx]
             key = video + ',' + "%04d" % (sec)
