@@ -443,7 +443,7 @@ if __name__ == '__main__':
     # Assuming 'model' is already defined and loaded with weights, and set to evaluation mode
     
     # Define the path where you want to save the model
-    save_path = 'model.pth'
+    save_path = '/kaggle/input/yowonano/model.pth'
     
     # Save the model
     torch.save(model.state_dict(), save_path)
