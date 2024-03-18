@@ -446,7 +446,7 @@ if __name__ == '__main__':
     save_path = '/kaggle/input/model.pth'
     
     # Save the model
-    torch.save(model.state_dict(),  model.pth)
+    torch.save(model.state_dict(),  save_path)
     
     print("Model saved successfully at:", save_path)
     # run
