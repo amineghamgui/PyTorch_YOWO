@@ -238,7 +238,7 @@ if __name__ == '__main__':
     # Assuming 'model' is already defined and loaded with weights, and set to evaluation mode
     
     # Define the path where you want to save the model
-    save_model_path = os.path.join(args.save_folder, 'ava_video', 'model.pth')
+    save_model_path = os.path.join("/kaggle/working/", 'model.pth')
 
     # Enregistrez le modèle
     torch.save(model.state_dict(), save_model_path)
