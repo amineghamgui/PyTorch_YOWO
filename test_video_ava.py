@@ -241,7 +241,7 @@ if __name__ == '__main__':
     save_model_path = os.path.join("/kaggle/working/", 'model.pth')
 
     # Enregistrez le modèle
-    torch.save(model.state_dict(), save_model_path)
+    torch.save(model, save_model_path)
     # run
     run(args=args, d_cfg=d_cfg, model=model, device=device,
         transform=basetransform, class_names=class_names)
