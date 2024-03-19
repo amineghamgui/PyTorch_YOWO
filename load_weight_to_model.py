@@ -85,12 +85,4 @@ if __name__ == '__main__':
     torch.save(model, save_model_path)
     # to eval
     model = model.to(device).eval()
-    #import torch
-
-    # Assuming 'model' is already defined and loaded with weights, and set to evaluation mode
-    
-    # Define the path where you want to save the model
-
-    # # run
-    # run(args=args, d_cfg=d_cfg, model=model, device=device,
-    #     transform=basetransform, class_names=class_names)
+ 
