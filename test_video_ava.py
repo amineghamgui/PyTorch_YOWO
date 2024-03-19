@@ -230,7 +230,10 @@ if __name__ == '__main__':
 
     # load trained weight
     model = load_weight(model=model, path_to_ckpt=args.weight)
+    save_model_path = os.path.join("/kaggle/working/", 'model1111.pth')
 
+    # Enregistrez le modèle
+    torch.save(model, save_model_path)
     # to eval
     model = model.to(device).eval()
     #import torch
@@ -238,10 +241,7 @@ if __name__ == '__main__':
     # Assuming 'model' is already defined and loaded with weights, and set to evaluation mode
     
     # Define the path where you want to save the model
-    save_model_path = os.path.join("/kaggle/working/", 'model.pth')
 
-    # Enregistrez le modèle
-    torch.save(model, save_model_path)
     # run
     run(args=args, d_cfg=d_cfg, model=model, device=device,
         transform=basetransform, class_names=class_names)
