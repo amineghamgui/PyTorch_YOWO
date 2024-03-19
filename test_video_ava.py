@@ -100,7 +100,7 @@ def run(args, d_cfg, model, device, transform, class_names):
             # List [T, 3, H, W] -> [3, T, H, W]
             x = torch.stack(x, dim=1)
             x = x.unsqueeze(0).to(device)  # [B, 3, T, H, W], B=1
-
+            print("************************************************************shape********************************",x.shape)
             t0 = time.time()
             # inference
             batch_bboxes = model(x)
