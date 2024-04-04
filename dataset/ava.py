@@ -301,6 +301,8 @@ if __name__ == '__main__':
             key_frame = cv2.rectangle(key_frame, (x1, y1), (x2, y2), (255, 0, 0))
 
         # cv2 show
-        cv2.imshow('key frame', key_frame[..., (2, 1, 0)])
-        cv2.waitKey(0)
+        import matplotlib.pyplot as plt
+        plt.imshow( key_frame[..., (2, 1, 0)])
+        # cv2.imshow('key frame', key_frame[..., (2, 1, 0)])
+        # cv2.waitKey(0)
         
