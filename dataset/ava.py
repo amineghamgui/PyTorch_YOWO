@@ -249,6 +249,7 @@ if __name__ == '__main__':
         'val_exclusion_file': 'ava_v2.2/ava_val_excluded_timestamps_v2.2.csv',
         'labelmap_file': 'ava_v2.2/ava_action_list_v2.2.pbtxt',
     }
+    
     trans_config = {
         'pixel_mean': [0.45, 0.45, 0.45],
         'pixel_std': [0.225, 0.225, 0.225],
@@ -279,6 +280,8 @@ if __name__ == '__main__':
         len_clip=len_clip,
         sampling_rate=1
     )
+
+    print("*************************************************************************************amine")
 
     print(len(train_dataset))
     std = trans_config['pixel_std']
