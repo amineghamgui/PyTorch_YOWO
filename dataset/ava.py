@@ -107,7 +107,8 @@ class AVA_Dataset(Dataset):
         print("Number of key frames: {}".format(len(self)))
         print("Number of boxes: {}.".format(self._num_boxes_used))
         print("self._keyframe_boxes_and_labels",self._keyframe_boxes_and_labels[0])
-        print("boxes_and_labels ",boxes_and_labels )
+        #print("boxes_and_labels ",boxes_and_labels )
+        print("\n self._keyframe_indices    ",self._keyframe_indices)
 
 
     def __len__(self):
