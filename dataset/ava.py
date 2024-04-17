@@ -222,8 +222,8 @@ class AVA_Dataset(Dataset):
             'orig_size': [ow, oh],
             # 'video_idx': video_idx,
             # 'sec': sec,
-            'video_idx': None,
-            'sec': None,
+            'video_idx': "aaaaaaaaaaaaaaaaa",
+            'sec': sec,
         }
 
         return keyframe_info, video_clip, target
