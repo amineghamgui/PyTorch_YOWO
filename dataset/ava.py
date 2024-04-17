@@ -220,10 +220,10 @@ class AVA_Dataset(Dataset):
             'boxes': target[:, :4].float(),  # [N, 4]
             'labels': target[:, 4:].long(),  # [N, C]
             'orig_size': [ow, oh],
-            'video_idx': video_idx,
-            'sec': sec,
-            # 'video_idx': "aaaaaaaaaaaaaaaaa",
+            # 'video_idx': video_idx,
             # 'sec': sec,
+            'video_idx': "aaaaaaaaaaaaaaaaa",
+            'sec': sec,
         }
 
         return keyframe_info, video_clip, target
