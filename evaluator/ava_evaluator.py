@@ -166,9 +166,9 @@ class AVA_Evaluator(object):
             
             #assert len(scores) == 80
 
-            video = self.video_idx_to_name[video_idx]
-            # video = video_idx
-            key = video + ',' + "%04d" % (sec)
+            # video = self.video_idx_to_name[video_idx]
+            video = video_idx
+            key = str(video) + ',' + "%04d" % (sec)
             box = [box[1], box[0], box[3], box[2]]  # turn to y1,x1,y2,x2
 
             for cls_idx, score in enumerate(scores):
