@@ -283,7 +283,7 @@ def get_ava_eval_data(
         #video = video_idx_to_name[video_idx]
 
         #key = video + "," + "%04d" % (sec)
-        key = str(video_idx) + "," + "%04d" % (sec)
+        key = "aaaaaaaaaaaaaaa" + "," + "%04d" % (sec)
         batch_box = boxes[i].tolist()  # [batch_idx, x1, y1, x2, y2]
         # The first is batch idx.
         batch_box = [batch_box[j] for j in [0, 2, 1, 4, 3]]  # [batch_idx, y1, x1, y2, x2]
