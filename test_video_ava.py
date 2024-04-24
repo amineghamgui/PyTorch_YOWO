@@ -61,6 +61,7 @@ def run(args, d_cfg, model, device, transform, class_names):
     out = cv2.VideoWriter(save_name, fourcc, fps, save_size)
 
     video_clip = []
+    bboxes=[]#tracer bboxes sur les autre frames si bboxes != [] 
     while(True):
         ret, frame = video.read()
         
