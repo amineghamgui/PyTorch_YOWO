@@ -69,71 +69,73 @@ def run(args, d_cfg, model, device, transform, class_names):
             frame_pil = Image.fromarray(frame.astype(np.uint8))
 
             # prepare
-            if len(video_clip) <= 0:
-                for _ in range(d_cfg['len_clip']):
-                    video_clip.append(frame_pil)
-
+            # if len(video_clip) <= 0:
+            # for _ in range(d_cfg['len_clip']):
+            if (len(video_clip)<d_cfg['len_clip']+1)
             video_clip.append(frame_pil)
-            del video_clip[0]
+
+            # video_clip.append(frame_pil)
+            # del video_clip[0]
 
             # orig size
             orig_h, orig_w = frame.shape[:2]
-
-            # transform
-            x, _ = transform(video_clip)
-            # List [T, 3, H, W] -> [3, T, H, W]
-            x = torch.stack(x, dim=1)
-            x = x.unsqueeze(0).to(device) # [B, 3, T, H, W], B=1
-
-            t0 = time.time()
-            # inference
-            batch_bboxes = model(x)
-            print("inference time ", time.time() - t0, "s")
-
-            # batch size = 1
-            bboxes = batch_bboxes[0]
-
-            # visualize detection results
-            for bbox in bboxes:
-                x1, y1, x2, y2 = bbox[:4]
-                det_conf = float(bbox[4])
-                cls_out = [det_conf * cls_conf for cls_conf in bbox[5:]]
-            
-                # rescale bbox
-                x1, x2 = int(x1 * orig_w), int(x2 * orig_w)
-                y1, y2 = int(y1 * orig_h), int(y2 * orig_h)
-
-                cls_scores = np.array(cls_out)
-                indices = np.where(cls_scores > 0.4)
-                scores = cls_scores[indices]
-                indices = list(indices[0])
-                scores = list(scores)
-
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-
-                if len(scores) > 0:
-                    blk   = np.zeros(frame.shape, np.uint8)
-                    font  = cv2.FONT_HERSHEY_SIMPLEX
-                    coord = []
-                    text  = []
-                    text_size = []
-
-                    for _, cls_ind in enumerate(indices):
-                        text.append("[{:.2f}] ".format(scores[_]) + str(class_names[cls_ind]))
-                        text_size.append(cv2.getTextSize(text[-1], font, fontScale=0.25, thickness=1)[0])
-                        coord.append((x1+3, y1+7+10*_))
-                        cv2.rectangle(blk, (coord[-1][0]-1, coord[-1][1]-6), (coord[-1][0]+text_size[-1][0]+1, coord[-1][1]+text_size[-1][1]-4), (0, 255, 0), cv2.FILLED)
-                    frame = cv2.addWeighted(frame, 1.0, blk, 0.25, 1)
-                    for t in range(len(text)):
-                        cv2.putText(frame, text[t], coord[t], font, 0.25, (0, 0, 0), 1)
-
-            # save
+            if (len(video_clip)==d_cfg['len_clip'])
+                # transform
+                x, _ = transform(video_clip)
+                # List [T, 3, H, W] -> [3, T, H, W]
+                x = torch.stack(x, dim=1)
+                x = x.unsqueeze(0).to(device) # [B, 3, T, H, W], B=1
+    
+                t0 = time.time()
+                # inference
+                batch_bboxes = model(x)
+                print("inference time ", time.time() - t0, "s")
+    
+                # batch size = 1
+                bboxes = batch_bboxes[0]
+    
+                # visualize detection results
+                for bbox in bboxes:
+                    x1, y1, x2, y2 = bbox[:4]
+                    det_conf = float(bbox[4])
+                    cls_out = [det_conf * cls_conf for cls_conf in bbox[5:]]
+                
+                    # rescale bbox
+                    x1, x2 = int(x1 * orig_w), int(x2 * orig_w)
+                    y1, y2 = int(y1 * orig_h), int(y2 * orig_h)
+    
+                    cls_scores = np.array(cls_out)
+                    indices = np.where(cls_scores > 0.4)
+                    scores = cls_scores[indices]
+                    indices = list(indices[0])
+                    scores = list(scores)
+    
+                    cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+    
+                    if len(scores) > 0:
+                        blk   = np.zeros(frame.shape, np.uint8)
+                        font  = cv2.FONT_HERSHEY_SIMPLEX
+                        coord = []
+                        text  = []
+                        text_size = []
+    
+                        for _, cls_ind in enumerate(indices):
+                            text.append("[{:.2f}] ".format(scores[_]) + str(class_names[cls_ind]))
+                            text_size.append(cv2.getTextSize(text[-1], font, fontScale=0.25, thickness=1)[0])
+                            coord.append((x1+3, y1+7+10*_))
+                            cv2.rectangle(blk, (coord[-1][0]-1, coord[-1][1]-6), (coord[-1][0]+text_size[-1][0]+1, coord[-1][1]+text_size[-1][1]-4), (0, 255, 0), cv2.FILLED)
+                        frame = cv2.addWeighted(frame, 1.0, blk, 0.25, 1)
+                        for t in range(len(text)):
+                            cv2.putText(frame, text[t], coord[t], font, 0.25, (0, 0, 0), 1)
             out.write(frame)
-
-            if args.show:
-                # show
-                cv2.imshow('key-frame detection', frame)
-                cv2.waitKey(1)
+            video_clip=[]
+            # save
+                
+    
+                # if args.show:
+                #     # show
+                #     cv2.imshow('key-frame detection', frame)
+                #     cv2.waitKey(1)
 
         else:
             break
